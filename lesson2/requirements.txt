@@ -1,0 +1,10 @@
+# USB Keyboard Host Dependencies
+# Choose one of the following options:
+
+# Option 1: HIDAPI (Recommended for Windows)
+hidapi>=0.14.0
+
+# Option 2: PyUSB (Alternative)
+# pyusb>=1.2.1
+# libusb1>=3.3.1
+
