@@ -1,0 +1,149 @@
+# USB Keyboard Host Development Log
+# =================================
+# This log describes the function of each file and the recommended order for development/usage
+
+## PROJECT OVERVIEW
+This project creates a USB host application that can receive and decode HID keyboard reports from USB keyboards. It provides real-time monitoring of keyboard input with both raw USB data and human-readable key information.
+
+## FILE DESCRIPTIONS AND ORDER
+
+### 1. README_USB_Keyboard.md
+**Purpose**: Comprehensive documentation and user guide
+**Description**: 
+- Complete project documentation
+- Installation instructions for different platforms (Windows, Linux, macOS)
+- Usage examples and troubleshooting guide
+- Technical details about HID protocol and keyboard report format
+- Security considerations and development notes
+**When to read**: First - provides complete overview and setup instructions
+
+### 2. requirements.txt
+**Purpose**: Python package dependencies specification
+**Description**:
+- Lists required Python packages for the project
+- Provides two options: HIDAPI (recommended) and PyUSB (alternative)
+- Includes version specifications for compatibility
+**When to use**: Before installation - run `pip install -r requirements.txt`
+
+### 3. install_dependencies.py
+**Purpose**: Automated dependency installer and checker
+**Description**:
+- Automatically installs required packages
+- Checks if packages are already installed
+- Provides platform-specific installation notes
+- Handles both HIDAPI and PyUSB installations
+**When to run**: After cloning/setting up project - ensures all dependencies are installed
+
+### 4. debug_hid_devices.py
+**Purpose**: HID device enumeration and debugging tool
+**Description**:
+- Lists all HID devices connected to the system
+- Shows detailed device information (VID, PID, usage page, etc.)
+- Helps identify keyboard devices and troubleshoot connection issues
+- Useful for debugging when no keyboard is detected
+**When to use**: When troubleshooting device detection issues
+
+### 5. test_usb_backend.py
+**Purpose**: USB backend testing and validation
+**Description**:
+- Tests different USB backends (libusb1, libusb0)
+- Validates USB communication capabilities
+- Helps diagnose backend-related issues
+- Primarily for PyUSB version troubleshooting
+**When to use**: When experiencing USB backend errors with PyUSB version
+
+### 6. demo_keyboard_host.py
+**Purpose**: Demonstration and learning tool
+**Description**:
+- Shows how keyboard reports are decoded without requiring a physical keyboard
+- Demonstrates different types of key presses and modifier combinations
+- Provides example output and educational content
+- Includes setup instructions and troubleshooting tips
+**When to use**: For learning/understanding the system before using with real hardware
+
+### 7. usb_keyboard_host.py
+**Purpose**: Main application using PyUSB library
+**Description**:
+- Primary USB keyboard host implementation using PyUSB
+- Includes enhanced backend detection and error handling
+- Supports multiple USB backends with fallback options
+- Full HID keyboard report decoding and real-time monitoring
+- Cross-platform compatibility with proper error handling
+**When to use**: Alternative implementation, requires libusb drivers
+
+### 8. usb_keyboard_host_hidapi.py
+**Purpose**: Main application using HIDAPI library (RECOMMENDED)
+**Description**:
+- Recommended implementation using HIDAPI library
+- Better Windows compatibility without additional drivers
+- Simplified setup and more reliable operation
+- Same functionality as PyUSB version but easier to use
+- Optimized for HID devices like keyboards
+**When to use**: Primary implementation - recommended for most users
+
+## DEVELOPMENT WORKFLOW
+
+### Phase 1: Setup and Documentation
+1. Read `README_USB_Keyboard.md` for complete understanding
+2. Check `requirements.txt` for dependencies
+3. Run `install_dependencies.py` to install packages
+
+### Phase 2: Testing and Debugging
+4. Run `debug_hid_devices.py` to see available HID devices
+5. Run `demo_keyboard_host.py` to understand the system
+6. Use `test_usb_backend.py` if using PyUSB version
+
+### Phase 3: Main Application
+7. Run `usb_keyboard_host_hidapi.py` (recommended) or `usb_keyboard_host.py`
+8. Connect USB keyboard and test functionality
+
+## USAGE SCENARIOS
+
+### For End Users:
+- Start with README_USB_Keyboard.md
+- Install dependencies using install_dependencies.py
+- Run usb_keyboard_host_hidapi.py
+
+### For Developers:
+- Review all files in order listed above
+- Use debug tools for troubleshooting
+- Modify usb_keyboard_host_hidapi.py for customizations
+
+### For Learning/Education:
+- Start with demo_keyboard_host.py
+- Read README_USB_Keyboard.md for technical details
+- Use debug tools to understand HID device enumeration
+
+## FILE DEPENDENCIES
+
+```
+README_USB_Keyboard.md (standalone documentation)
+    ↓
+requirements.txt (dependency specification)
+    ↓
+install_dependencies.py (uses requirements.txt)
+    ↓
+debug_hid_devices.py (independent debugging tool)
+    ↓
+test_usb_backend.py (independent testing tool)
+    ↓
+demo_keyboard_host.py (standalone demonstration)
+    ↓
+usb_keyboard_host.py (main PyUSB application)
+    ↓
+usb_keyboard_host_hidapi.py (main HIDAPI application - RECOMMENDED)
+```
+
+## NOTES
+
+- **Primary Application**: `usb_keyboard_host_hidapi.py` (recommended for most users)
+- **Alternative**: `usb_keyboard_host.py` (for advanced users or specific requirements)
+- **Learning Tool**: `demo_keyboard_host.py` (no hardware required)
+- **Debugging**: `debug_hid_devices.py` and `test_usb_backend.py`
+- **Documentation**: `README_USB_Keyboard.md` (comprehensive guide)
+
+## VERSION INFORMATION
+- Created: 2025-09-06
+- Python Version: 3.6+
+- Dependencies: hidapi>=0.14.0 (recommended) or pyusb>=1.2.1 (alternative)
+- Platform: Windows, Linux, macOS
